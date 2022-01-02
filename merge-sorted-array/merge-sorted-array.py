@@ -3,17 +3,10 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        while m>0 or n>0:
-            #print(nums1,m,n)
-            if n==0:
+        while n-1>=0:
+            if m-1>=0 and nums1[m-1]>=nums2[n-1]:
                 nums1[m+n-1] = nums1[m-1]
                 m-=1
-            elif m==0:
-                nums1[m+n-1] = nums2[n-1]
-                n-=1
-            elif nums2[n-1]>nums1[m-1]:
-                nums1[m+n-1] = nums2[n-1]
-                n-=1
             else:
-                nums1[m+n-1] = nums1[m-1]
-                m-=1
+                nums1[m+n-1] = nums2[n-1]
+                n-=1
