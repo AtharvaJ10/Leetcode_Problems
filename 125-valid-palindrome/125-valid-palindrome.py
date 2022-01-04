@@ -10,6 +10,7 @@ class Solution:
                 continue
             elif s[i].lower()!=s[j].lower():
                 return False
-            i+=1
-            j-=1
+            else:
+                i+=1
+                j-=1
         return True
