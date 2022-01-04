@@ -9,14 +9,11 @@ class Solution:
         if head==None:
             return False
         
-        prev = ListNode(0)
-        prev.next = head
-        one = prev
-        two = head
+        a = head.next
         
-        while(two!=None and two.next!=None):
-            if one==two:
-                return True
-            one = one.next
-            two = two.next.next
-        return False
+        while(a!=head):
+            if a==None or a.next==None:
+                return False
+            head = head.next
+            a = a.next.next
+        return True
