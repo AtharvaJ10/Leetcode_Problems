@@ -8,9 +8,8 @@ class Solution:
             if not s[j].isalnum():
                 j-=1
                 continue
-            elif s[i].lower()!=s[j].lower():
+            if s[i].lower()!=s[j].lower():
                 return False
-            else:
-                i+=1
-                j-=1
+            i+=1
+            j-=1
         return True
