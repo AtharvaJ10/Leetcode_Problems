@@ -8,34 +8,31 @@ class Solution:
         if head.next==None:
             return True       
         
-        length = 0
-        temp = head
-        
-        while temp!=None:
-            length+=1
-            temp = temp.next
-        
+        slow = head
+        fast = head
         prev = None
-        temp = head
-        total = length
-            
-        total = total//2
-        while total!= 0:
-            next1 = temp.next
-            temp.next = prev
-            prev = temp
-            temp = next1
-            total-=1
         
-        if length%2 == 1:
-            temp = temp.next
+        while fast!=None and fast.next!= None:
+            #print(fast.val,fast.next.val,fast.next.next.val)
+            fast = fast.next.next
+    
+            next1 = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next1
             
-        while temp!=None:
-            if temp.val!=prev.val:
+        if fast!=None:
+            slow = slow.next
+            
+        while slow!=None:
+            if slow.val !=prev.val:
                 return False
-            else:
-                temp = temp.next
-                prev = prev.next
+            slow = slow.next
+            prev = prev.next
+            
         return True
+            
+        
+        
             
             
