@@ -11,11 +11,21 @@ class Solution:
         
         while queue:
             node = queue.pop(0)
+            print(node.val)
             if node.val>=low and node.val<=high:
                 res+=node.val
-            if node.left is not None:
-                queue.append(node.left)
-            if node.right is not None:
+                if node.val == high and node.left is not None:
+                    queue.append(node.left)
+                elif node.val == low and node.right is not None:
+                    queue.append(node.right)
+                else:
+                    if node.left is not None:
+                        queue.append(node.left)
+                    if node.right is not None:
+                        queue.append(node.right)
+            elif node.val<low and node.right is not None:
                 queue.append(node.right)
+            elif node.val>high and node.left is not None:
+                queue.append(node.left)
         return res
         
