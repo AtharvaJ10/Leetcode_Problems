@@ -29,5 +29,4 @@ class Solution:
         count[7]-=count[6]
         count[9] -= count[5]+count[6]+count[8]
         
-        print(count)
         return ''.join(str(i)*count[i] for i in range(len(count)) if count[i]!=0)
