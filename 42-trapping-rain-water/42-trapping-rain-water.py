@@ -5,20 +5,19 @@ class Solution:
         res = 0
         
         while left<right:
-            if height[left]>maxl:
-                maxl = height[left]
-            else:
-                res+=maxl-height[left]
-            
-            if height[right]>maxr:
-                maxr = height[right]
-            else:
-                res+=maxr-height[right]
-                
             if height[left]<height[right]:
+                if maxl<height[left]:
+                    maxl=height[left]
+                else:
+                    res+=maxl-height[left]
                 left+=1
             else:
+                if maxr<height[right]:
+                    maxr=height[right]
+                else:
+                    res+=maxr-height[right]
                 right-=1
+                
         return res
             
                 
