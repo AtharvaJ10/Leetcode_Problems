@@ -24,3 +24,5 @@ class Solution:
                 root.val = temp.val
                 root.right = self.deleteNode(root.right,temp.val)
         return root
+            
+        
