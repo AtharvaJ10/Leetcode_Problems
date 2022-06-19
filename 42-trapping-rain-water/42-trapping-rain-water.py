@@ -1,23 +1,14 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        left,right = 0,len(height)-1
-        maxl,maxr = 0,0
-        res = 0
-        
-        while left<right:
-            if height[left]<height[right]:
-                if maxl<height[left]:
-                    maxl=height[left]
-                else:
-                    res+=maxl-height[left]
-                left+=1
-            else:
-                if maxr<height[right]:
-                    maxr=height[right]
-                else:
-                    res+=maxr-height[right]
-                right-=1
-                
-        return res
+        level = []
+        max1 = 0
+        for i in height:
+            max1 = max(max1,i)
+            level.append(max(max1,i))
             
-                
+        max1=0
+        for i in range(len(height)-1,-1,-1):
+            max1 = max(max1,height[i])
+            level[i] = min(max1,level[i])-height[i]
+        return sum(level)
+            
