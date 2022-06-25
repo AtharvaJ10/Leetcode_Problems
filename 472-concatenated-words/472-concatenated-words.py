@@ -31,7 +31,6 @@ class Trie:
 
     def helper(self, word, st, end, cnt):
         p = self.root
-
         w = word[st:end+1]
         if w in self.dp: return self.dp[w]
 
@@ -42,7 +41,8 @@ class Trie:
                 if p.is_end:
                     if x == end:
                         return cnt >= 1
-
+                    
+                    print(word)
                     if self.helper(word, x + 1, end, cnt + 1):
                         self.dp[w] = True
                         return True
