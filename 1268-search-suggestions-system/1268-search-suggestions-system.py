@@ -7,7 +7,7 @@ class Solution:
             str1+=i
             index = self.binary_search(products,str1)
             temp = []
-            for j in range(min(index+3,len(products))):
+            for j in range(index, min(index+3,len(products))):
                 if products[j].startswith(str1):
                     temp.append(products[j])
             res.append(temp)
