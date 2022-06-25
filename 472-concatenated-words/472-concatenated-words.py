@@ -13,10 +13,8 @@ class Solution:
                     memo[word] = True 
                     break
                 if prefix in d and dfs(suffix):
-                    memo[word] = True 
-                    break
-                if suffix in d and dfs(prefix):
-                    memo[word] = True 
+                    memo[word] = True
+                    memo[suffix] = True
                     break
             return memo[word] 
         return [word for word in words if dfs(word)] 
