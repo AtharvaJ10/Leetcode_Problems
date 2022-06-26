@@ -10,3 +10,4 @@ class Solution:
             k,j = d[i]
             res+=(len(s)-j)*(j-k)
         return res
+        
