@@ -1,12 +1,10 @@
 class Solution:
     def minFlipsMonoIncr(self, s: str) -> int:
-        cost = s.count('0')
-        best = cost
+        ones, flips = 0,0
         for i in s:
-            if i=='0':
-                cost-=1
+            if i=="1":
+                ones+=1
             else:
-                cost+=1
-            best = min(best,cost)
-        return best
-        
+                flips+=1
+            flips = min(flips, ones)
+        return flips
