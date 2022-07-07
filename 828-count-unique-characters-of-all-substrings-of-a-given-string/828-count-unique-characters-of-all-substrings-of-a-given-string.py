@@ -4,10 +4,10 @@ class Solution:
         res = 0
         for i,c in enumerate(s):
             k,j = d[c]
-            res+=(i-j)*(j-k)
+            res += (i-j)*(j-k)
             d[c] = [j,i]
+        
         for i in d:
             k,j = d[i]
-            res+=(len(s)-j)*(j-k)
+            res+= (len(s)-j) * (j-k)
         return res
-        
