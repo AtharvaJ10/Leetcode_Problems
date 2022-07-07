@@ -1,10 +1,14 @@
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
-        def solve(log):
-            if log[-1].isdigit():
-                return (1,)
-            else:
-                left, right = log.split(" ",1)
-                return (0, right, left)
+        letters = []
+        digits = []
         
-        return sorted(logs, key = solve)
+        for i in logs:
+            temp = i.split(" ",1)
+            if temp[1][-1].isdigit():
+                digits.append(i)
+            else:
+                letters.append(i)
+        letters = sorted(letters, key = lambda l: (l.split(" ",1)[1], l.split(" ",1)[0]))
+        
+        return letters+digits
