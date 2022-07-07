@@ -1,26 +1,41 @@
+class Node:
+    def __init__(self, value = None):
+        self.value = value
+        self.suggestions = []
+        self.children = {}
+    
+class Trie:
+    def __init__(self):
+        self.root = Node()
+    
+    def insert(self, product):
+        temp = self.root
+        for j in product:
+            if j not in temp.children:
+                temp.children[j] = Node(j)
+            temp = temp.children[j]
+
+            if len(temp.suggestions)<3:
+                temp.suggestions.append(product)
+    
+    def find(self, target):
+        res = []
+        temp = self.root
+        for i in target:
+            if i in temp.children:
+                temp = temp.children[i]
+                res.append(temp.suggestions)
+            else:
+                break
+        rem = len(target) - len(res)
+        for i in range(rem):
+            res.append([])
+        return res
+
 class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
-        def binary_search(low, target):
-            hi = len(products)-1
-            while low<hi:
-                mid = (low+hi)//2
-                if products[mid]<target:
-                    low = mid+1
-                else:
-                    hi = mid
-            return low
-        
         products.sort()
-        temp = ""
-        res = []
-        low = 0
-        for i in searchWord:
-            temp+=i
-            index = binary_search(low, temp)
-            low = index
-            array = []
-            for j in range(index, min(index+3, len(products))):
-                if products[j].startswith(temp):
-                    array.append(products[j])
-            res.append(array)
-        return res
+        trie = Trie()
+        for i in products:
+            trie.insert(i)
+        return trie.find(searchWord)
