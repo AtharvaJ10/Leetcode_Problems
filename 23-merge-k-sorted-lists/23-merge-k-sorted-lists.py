@@ -5,24 +5,18 @@
 #         self.next = next
 import heapq
 class Solution:
-    def mergeKLists(self, lists):
-        if not lists:
-            return None
-        if len(lists) == 1:
-            return lists[0]
-        mid = len(lists) // 2
-        l, r = self.mergeKLists(lists[:mid]), self.mergeKLists(lists[mid:])
-        return self.merge(l, r)
-    
-    def merge(self, l, r):
-        dummy = p = ListNode()
-        while l and r:
-            if l.val < r.val:
-                p.next = l
-                l = l.next
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        heap = [(head.val, i, head) for i,head in enumerate(lists) if head]
+        result = ListNode()
+        temp = result
+        
+        heapq.heapify(heap)
+        while heap!=[]:
+            val, index, node = heap[0]
+            if not node.next:
+                heapq.heappop(heap)
             else:
-                p.next = r
-                r = r.next
-            p = p.next
-        p.next = l or r
-        return dummy.next
+                heapq.heapreplace(heap, (node.next.val, index, node.next))
+            temp.next = node
+            temp = temp.next
+        return result.next
