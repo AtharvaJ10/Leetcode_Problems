@@ -19,7 +19,7 @@ class Solution:
             for x,y in [k+1,l], [k,l-1], [k-1,l], [k,l+1]:
                 if 0<=x<rows and 0<=y<cols and grid[x][y]==1:
                     fresh-=1
-                    if fresh<=0:
+                    if fresh==0:
                         return minutes+1
                     grid[x][y] = 2
                     queue.append([x,y,minutes+1])
