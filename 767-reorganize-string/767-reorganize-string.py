@@ -1,20 +1,18 @@
 import heapq
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        res, c = [], Counter(s)
-        pq = [[-value,key] for key, value in c.items()]
-        heapq.heapify(pq)
+        heap,res, d = [],"", Counter(s)
+        for i in d:
+            heap.append([-d[i],i])
+        heapq.heapify(heap)
         
-        prev_value, prev_key = 0, ""
-        while pq:
-            curr_value, curr_key = heapq.heappop(pq)
+        prev_key, prev_value = 0,0
+        while heap:
+            curr_value, curr_key = heapq.heappop(heap)
             if prev_value<0:
-                heapq.heappush(pq, [prev_value, prev_key])
-            
-            res.append(curr_key)
+                heapq.heappush(heap,[prev_value, prev_key])
+            res+=curr_key
             curr_value+=1
             prev_value, prev_key = curr_value, curr_key
-        if len(res)!=len(s):
-            return ""
-        return ''.join(res)
-            
+        
+        return res if len(res)==len(s) else ""
