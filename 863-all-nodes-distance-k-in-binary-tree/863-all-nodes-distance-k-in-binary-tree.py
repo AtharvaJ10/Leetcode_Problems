@@ -19,15 +19,15 @@ class Solution:
         
         conn = defaultdict(list)
         dfs(None, root)
-        
-        queue = [target.val]
+        queue = []
+        queue.append(target.val)
         visited = set(queue)
         for i in range(k):
-            new_level = []
+            next_level = []
             for j in queue:
-                for k in conn[j]:
-                    if k not in visited:
-                        new_level.append(k)
-            queue = new_level
-            visited |= set(queue)
+                for l in conn[j]:
+                    if l not in visited:
+                        next_level.append(l)
+            queue = next_level
+            visited |=set(queue)
         return queue
