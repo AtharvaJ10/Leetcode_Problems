@@ -11,21 +11,27 @@ class Solution:
             return []
         
         count, res = 1, []
-        queue = []
-        queue.append(root)
+        queue = deque([root])
         while queue:
-            length = len(queue)
-            if count%2==1:
-                res.append([node.val for node in queue])
-            else:
-                res.append([queue[i].val for i in range(length-1,-1,-1)])
-            for i in range(length):
-                node = queue.pop(0)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
+            level = []
+            for i in range(len(queue)):
+                if count%2==1:
+                    node = queue.popleft()
+                    level.append(node.val)
+                    if node.left:
+                        queue.append(node.left)
+                    if node.right:
+                        queue.append(node.right)
+                else:
+                    node = queue.pop()
+                    level.append(node.val)
+                    if node.right:
+                        queue.appendleft(node.right)
+                    if node.left:
+                        queue.appendleft(node.left)
+            res.append(level)
             count+=1
         return res
+            
             
             
