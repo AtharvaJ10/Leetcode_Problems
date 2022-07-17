@@ -9,7 +9,7 @@ class Solution:
             # 2. We expect dp[i] to be added to `deque` so that we can compute dp[i + 1] in the next iteration
             # 3. So, if dp[i] is larger than some old values, we can discard them safely.
             # 4. As a result, the length of `deque` is not necessarily `k`
-            while len(deque) and A[i] > deque[-1]:
+            while deque and A[i] > deque[-1]:
                 deque.pop()
             # no need to store the negative value
             if A[i] > 0:
