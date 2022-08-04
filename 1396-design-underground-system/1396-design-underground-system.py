@@ -1,24 +1,23 @@
+from collections import defaultdict
 class UndergroundSystem:
 
     def __init__(self):
-        self.checkInMap = {}  # Uid - [StationName, Time]
-        self.routeTotalTime = defaultdict(int)
-        self.routeCount = defaultdict(int)
+        self.dito={}
+        self.place=defaultdict(lambda:[0,0])
+        
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.checkInMap[id] = [stationName, t]
+        self.dito[id]=[stationName,t]
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        checkIn = self.checkInMap.pop(id)  # Pop after using it which will not make HashTable big
-        routeName = (checkIn[0], stationName)
+        retrieve=self.dito[id]
+        self.place[(retrieve[0],stationName)][0]+=t-retrieve[1]
+        self.place[(retrieve[0],stationName)][1]+=1
         
-        self.routeTotalTime[routeName] += t - checkIn[1]
-        self.routeCount[routeName] += 1
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        routeName = (startStation, endStation)
-        return self.routeTotalTime[routeName] / self.routeCount[routeName]
-        
+        hold=self.place[(startStation,endStation)]
+        return float(hold[0]/hold[1])
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
