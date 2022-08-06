@@ -1,40 +1,33 @@
-class Solution(object):
-    def invalidTransactions(self, transactions):
+class Solution:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        d = dict()
         invalid = []
-
-        # Record all transactions done at a particular time
-        #   including the person and the location.
-        transaction_time = defaultdict(dict)
-        for transaction in transactions:
-            name, str_time, amount, city = transaction.split(",")
-            time = int(str_time)
-
-            if name not in transaction_time[time]:
-                transaction_time[time][name] = {city, }
+        for i in transactions:
+            name, time, amount, city = i.split(",")
+            time = int(time)
+            if time in d:
+                if name in d[time]:
+                    d[time][name].add(city)
+                else:
+                    d[time][name] = set([city])
             else:
-                transaction_time[time][name].add(city)
-
-        for transaction in transactions:
-            name, str_time, amount, city = transaction.split(",")
-            time = int(str_time)
-
-            # # check amount
-            if int(amount) > 1000:
-                invalid.append(transaction)
+                d[time] = {name: set([city])}
+        
+        for i in transactions:
+            name, time, amount, city = i.split(",")
+            
+            if int(amount)>1000:
+                invalid.append(i)
                 continue
-
-            # # check if person did transaction within 60 minutes in a different city
-            for inv_time in range(time-60, time+61):
-                if inv_time not in transaction_time:
+            
+            time = int(time)
+            for j in range(time-60, time+60):
+                if j not in d:
                     continue
-                if name not in transaction_time[inv_time]:
+                if name not in d[j]:
                     continue
-
-                trans_by_name_at_time = transaction_time[inv_time][name]
-
-                # check if transactions were done in a different city
-                if city not in trans_by_name_at_time or len(trans_by_name_at_time) > 1:
-                    invalid.append(transaction)
+                
+                if city not in d[j][name] or len(d[j][name])>1:
+                    invalid.append(i)
                     break
-
-        return invalid 
+        return invalid
