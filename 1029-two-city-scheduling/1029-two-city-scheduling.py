@@ -5,8 +5,8 @@ class Solution:
         for a,b in costs:
             min_cost+=a
             refund.append(b-a)
-        refund.sort()
         
+        refund.sort()
         for i in range(len(refund)//2):
             min_cost+=refund[i]
         return min_cost
