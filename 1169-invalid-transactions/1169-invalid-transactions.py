@@ -1,39 +1,54 @@
-
-class Solution:
-    def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        transaction_map = defaultdict(set)
-                
+class Solution(object):
+    def invalidTransactions(self, transactions):
+        """ 
+        - Record all transactions done at a particular time. Recording the person and the location. Example:
+            `['alice,20,800,mtv','bob,50,1200,mtv','bob,20,100,beijing']` :\n
+            ` 
+            {   
+            20: {'alice': {'mtv'}, 'bob': {'beijing'}}, 
+            50: {'bob': {'mtv'}}
+            } 
+            ` \n
+            `{time: {person: {location}, person2: {location1, location2}}, time: {person: {location}}}`
+        - For each transaction, check if the amount is invalid - and add it to the invalid transactions if so.
+        - For each transaction, go through invalid times (+-60), check if a transaction by the same person happened
+            in a different city - and add it to the invalid transactions if so.
+        """
         invalid = []
+
+        # Record all transactions done at a particular time
+        #   including the person and the location.
+        transaction_time = defaultdict(dict)
         for transaction in transactions:
-            name, time, amount, city = transaction.split(",")
-            time = int(time)            
-            transaction_map[(time, name)].add(city)
-                    
-        
+            name, str_time, amount, city = transaction.split(",")
+            time = int(str_time)
+
+            if name not in transaction_time[time]:
+                transaction_time[time][name] = {city, }
+            else:
+                transaction_time[time][name].add(city)
+
         for transaction in transactions:
-            name, time, amount, city = transaction.split(",")
-            time = int(time)
-            amount = int(amount)
-            
-            if amount > 1000:
+            name, str_time, amount, city = transaction.split(",")
+            time = int(str_time)
+
+            # # check amount
+            if int(amount) > 1000:
                 invalid.append(transaction)
                 continue
-            
-            # check to see if there is a time within 60 minutes of this transaction
-            for time in range(time-60, time+61):
-                if (time, name) not in transaction_map:
+
+            # # check if person did transaction within 60 minutes in a different city
+            for inv_time in range(time-60, time+61):
+                if inv_time not in transaction_time:
                     continue
-                sus_transaction = transaction_map[(time, name)]
-                
-                # check to see if there is another transaction from a diff city if so its invalid
-                if city in sus_transaction:
-                    sus_transaction.remove(city)
-                    if len(sus_transaction) >= 1:
-                        invalid.append(transaction)
-                        break
-                    sus_transaction.add(city)
-                else:
+                if name not in transaction_time[inv_time]:
+                    continue
+
+                trans_by_name_at_time = transaction_time[inv_time][name]
+
+                # check if transactions were done in a different city
+                if city not in trans_by_name_at_time or len(trans_by_name_at_time) > 1:
                     invalid.append(transaction)
                     break
-                                        
-        return invalid  
+
+        return invalid 
