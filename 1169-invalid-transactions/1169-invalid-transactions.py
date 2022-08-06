@@ -1,6 +1,6 @@
 from collections import defaultdict
 class Solution:
-    def invalidTransactions(self, transactions):
+     def invalidTransactions(self, transactions):
         """
         :type transactions: List[str]
         :rtype: List[str]
@@ -18,13 +18,13 @@ class Solution:
             
             if time not in r:
                 r[time] = {
-                    name: [city]
+                    name: set([city]) # use set instead of list
                 }
             else:
                 if name not in r[time]:
-                    r[time][name]=[city]
+                    r[time][name]=set([city]) # use set instead of list
                 else:
-                    r[time][name].append(city)
+                    r[time][name].add(city)
                     
         
         for i in transactions:
@@ -44,8 +44,8 @@ class Solution:
                     continue
                 if name not in r[j]:
                     continue
-                if len(r[j][name]) > 1 or (r[j][name][0] != city):
+                if len(r[j][name]) > 1 or (next(iter(r[j][name])) != city): # get an element from set
                     inv.append(i)
                     break
                                         
-        return inv
+        return inv 
