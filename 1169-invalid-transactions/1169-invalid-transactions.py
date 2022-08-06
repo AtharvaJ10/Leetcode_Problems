@@ -1,19 +1,5 @@
 class Solution(object):
     def invalidTransactions(self, transactions):
-        """ 
-        - Record all transactions done at a particular time. Recording the person and the location. Example:
-            `['alice,20,800,mtv','bob,50,1200,mtv','bob,20,100,beijing']` :\n
-            ` 
-            {   
-            20: {'alice': {'mtv'}, 'bob': {'beijing'}}, 
-            50: {'bob': {'mtv'}}
-            } 
-            ` \n
-            `{time: {person: {location}, person2: {location1, location2}}, time: {person: {location}}}`
-        - For each transaction, check if the amount is invalid - and add it to the invalid transactions if so.
-        - For each transaction, go through invalid times (+-60), check if a transaction by the same person happened
-            in a different city - and add it to the invalid transactions if so.
-        """
         invalid = []
 
         # Record all transactions done at a particular time
