@@ -5,7 +5,6 @@ class Solution:
             d[x] = p[x][:p[x].index(y)]
             d[y] = p[y][:p[y].index(x)]
         
-        print(d)
         res = 0
         for x in d:
             for u in d[x]:
