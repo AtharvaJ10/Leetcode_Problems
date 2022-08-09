@@ -2,9 +2,9 @@ class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
         min_cost = 0
         refund = []
-        for a,b in costs:
-            min_cost+=a
-            refund.append(b-a)
+        for i,j in costs:
+            min_cost+=i
+            refund.append(j-i)
         
         refund.sort()
         for i in range(len(refund)//2):
