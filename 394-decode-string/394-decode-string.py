@@ -1,17 +1,17 @@
 class Solution:
     def decodeString(self, s: str) -> str:
         stack = []
-        current,k = "",0
+        current_string, k = "", 0
         for i in s:
-            if i.isdigit():
-                k = k*10 + int(i)
-            elif i=="[":
-                stack.append((current,k))
-                current = ""
+            if i=="[":
+                stack.append([current_string, k])
+                current_string = ""
                 k = 0
             elif i=="]":
-                last_s, last_k = stack.pop()
-                current = last_s + current*last_k
+                last_string, last_k = stack.pop()
+                current_string = last_string + current_string * last_k
+            elif i.isdigit():
+                k = k*10+int(i)
             else:
-                current+=i
-        return current
+                current_string+=i
+        return current_string
