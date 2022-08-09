@@ -1,29 +1,30 @@
 import random
+from collections import defaultdict
 class RandomizedCollection:
 
     def __init__(self):
-        self.vals, self.idxs = [], collections.defaultdict(set)
-        
+        self.value = []
+        self.index = defaultdict(set)
 
-    def insert(self, val):
-        self.vals.append(val)
-        self.idxs[val].add(len(self.vals) - 1)
-        return len(self.idxs[val]) == 1
-        
+    def insert(self, val: int) -> bool:
+        self.value.append(val)
+        self.index[val].add(len(self.value)-1)
+        return len(self.index[val])==1
+            
 
-    def remove(self, val):
-        if self.idxs[val]:
-            out, ins = self.idxs[val].pop(), self.vals[-1]
-            self.vals[out] = ins
-            if self.idxs[ins]:
-                self.idxs[ins].add(out)
-                self.idxs[ins].discard(len(self.vals) - 1)
-            self.vals.pop()
+    def remove(self, val: int) -> bool:
+        if self.index[val]:
+            out = self.index[val].pop()
+            insert = self.value[-1]
+            self.value[out] = insert
+            self.index[insert].add(out)
+            self.index[insert].discard(len(self.value)-1)
+            self.value.pop()
             return True
-        return False 
+        return False
 
-    def getRandom(self):
-        return random.choice(self.vals)
+    def getRandom(self) -> int:
+        return random.choice(self.value)
 
 
 # Your RandomizedCollection object will be instantiated and called as such:
