@@ -1,17 +1,14 @@
 class Solution:
     def unhappyFriends(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -> int:
-        """Create dictionary using each friend as keys and a list of people they are closer to than the person they are paired with as values. This can be done using index.
-
-Then use nested for loop to find when people are on each other's list."""
-        d, p = {}, preferences
-        for x, y in pairs:
-            d[x] = set(p[x][:p[x].index(y)])
-            d[y] = set(p[y][:p[y].index(x)])
+        d = {}
+        for i,j in pairs:
+            d[i] = preferences[i][:preferences[i].index(j)]
+            d[j] = preferences[j][:preferences[j].index(i)]
         
-        res = 0
-        for x in d:
-            for u in d[x]:
-                if x in d[u]:
-                    res += 1
+        count = 0
+        for i in d:
+            for j in d[i]:
+                if i in d[j]:
+                    count+=1
                     break
-        return res
+        return count
