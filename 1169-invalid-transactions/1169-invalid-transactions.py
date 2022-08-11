@@ -1,16 +1,17 @@
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        d = {}
+        hash_map = {}
         for i in transactions:
             name, time, amount, city = i.split(",")
             time = int(time)
-            if time in d:
-                if name in d[time]:
-                    d[time][name].add(city)
+            
+            if time in hash_map:
+                if name in hash_map[time]:
+                    hash_map[time][name].add(city)
                 else:
-                    d[time][name] = set([city])
+                    hash_map[time][name] = set([city])
             else:
-                d[time] = {name: set([city])}
+                hash_map[time] = {name: set([city])}
         
         invalid = []
         for i in transactions:
@@ -22,12 +23,12 @@ class Solution:
                 continue
             
             for j in range(time-60, time+61):
-                if j not in d:
+                if j not in hash_map:
                     continue
-                if name not in d[j]:
+                if name not in hash_map[j]:
                     continue
                 
-                if city not in d[j][name] or len(d[j][name])>1:
+                if city not in hash_map[j][name] or len(hash_map[j][name])>1:
                     invalid.append(i)
                     break
         return invalid
