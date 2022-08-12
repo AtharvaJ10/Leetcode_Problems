@@ -1,6 +1,6 @@
 class Solution:
     def unhappyFriends(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -> int:
-        d = {}
+        d = defaultdict(list)
         for i,j in pairs:
             d[i] = preferences[i][:preferences[i].index(j)]
             d[j] = preferences[j][:preferences[j].index(i)]
