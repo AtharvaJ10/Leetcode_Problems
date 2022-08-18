@@ -10,24 +10,23 @@ class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         def dfs(parent, child):
             if parent and child:
-                conn[parent.val].append(child.val)
-                conn[child.val].append(parent.val)
+                graph[parent.val].append(child.val)
+                graph[child.val].append(parent.val)
             if child.left:
                 dfs(child, child.left)
             if child.right:
                 dfs(child, child.right)
-        
-        conn = defaultdict(list)
+                
+        graph = defaultdict(list)
         dfs(None, root)
-        queue = []
-        queue.append(target.val)
+        queue = [target.val]
         visited = set(queue)
         for i in range(k):
-            next_level = []
+            level = []
             for j in queue:
-                for l in conn[j]:
+                for l in graph[j]:
                     if l not in visited:
-                        next_level.append(l)
-            queue = next_level
-            visited |=set(queue)
+                        level.append(l)
+            queue = level
+            visited |= set(queue)
         return queue
