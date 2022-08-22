@@ -1,13 +1,13 @@
 class Solution:
     def minMovesToMakePalindrome(self, s: str) -> int:
-        s = list(s)
         res = 0
+        s = list(s)
         while s:
-            i = s.index(s[-1])
-            if i==len(s)-1:    #odd case
-                res+=i//2
+            index = s.index(s[-1])
+            if index == len(s)-1:
+                res+=index//2
             else:
-                res+=i
-                s.pop(i)
+                res+=index
+                s.pop(index)
             s.pop()
         return res
