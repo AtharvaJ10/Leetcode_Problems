@@ -1,7 +1,6 @@
-from collections import defaultdict
 class Solution:
     def appealSum(self, s: str) -> int:
-        last = defaultdict(lambda: -1)
+        last = {c:-1 for c in ascii_lowercase}
         res = 0
         for i,c in enumerate(s):
             j = last[c]
