@@ -11,25 +11,28 @@ class Solution:
             return []
         queue = deque([])
         queue.append(root)
-        count, res = 1, []
-        
+        res, count = [], 0
         while queue:
-            level = []
-            for i in range(len(queue)):
-                if count%2==1:
+            temp = []
+            if count%2==0:
+                for i in range(len(queue)):
                     node = queue.popleft()
-                    level.append(node.val)
+                    temp.append(node.val)
                     if node.left:
                         queue.append(node.left)
                     if node.right:
                         queue.append(node.right)
-                else:
+                count+=1
+            else:
+                for i in range(len(queue)):
                     node = queue.pop()
-                    level.append(node.val)
+                    temp.append(node.val)
                     if node.right:
                         queue.appendleft(node.right)
                     if node.left:
                         queue.appendleft(node.left)
-            count+=1
-            res.append(level)
+                count+=1
+            res.append(temp)
         return res
+
+        
