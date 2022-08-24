@@ -11,7 +11,8 @@ class Solution:
             return []
         queue = deque([])
         queue.append(root)
-        res, count = [], 0
+        count = 0
+        res = []
         while queue:
             temp = []
             if count%2==0:
@@ -22,7 +23,6 @@ class Solution:
                         queue.append(node.left)
                     if node.right:
                         queue.append(node.right)
-                count+=1
             else:
                 for i in range(len(queue)):
                     node = queue.pop()
@@ -31,8 +31,7 @@ class Solution:
                         queue.appendleft(node.right)
                     if node.left:
                         queue.appendleft(node.left)
-                count+=1
+            count+=1
             res.append(temp)
         return res
-
-        
+                    
