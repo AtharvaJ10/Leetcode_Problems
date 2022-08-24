@@ -5,7 +5,7 @@ class Solution:
             while stack and stack[-1]>0 and i<0:
                 if abs(stack[-1])>abs(i):
                     break
-                elif abs(stack[-1])<abs(i):
+                elif abs(i)>abs(stack[-1]):
                     stack.pop()
                 else:
                     stack.pop()
