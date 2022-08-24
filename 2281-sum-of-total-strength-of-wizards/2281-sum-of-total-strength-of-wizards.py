@@ -1,33 +1,32 @@
 class Solution:
-    def totalStrength(self, A: List[int]) -> int:
-        n = len(A)
+    def totalStrength(self, strength: List[int]) -> int:
+        n = len(strength)
         right = [n]*n
         stack = []
-        for i in range(len(A)):
-            while stack and A[stack[-1]]>A[i]:
+        for i in range(n):
+            while stack and strength[stack[-1]]>strength[i]:
                 right[stack.pop()] = i
             stack.append(i)
-            
+        
         left = [-1]*n
         stack = []
-        for i in range(len(A)-1,-1,-1):
-            while stack and A[stack[-1]]>=A[i]:
+        for i in range(n-1,-1,-1):
+            while stack and strength[stack[-1]]>=strength[i]:
                 left[stack.pop()] = i
             stack.append(i)
         
-        prefix = [0]
-        for i in A:
-            prefix.append(prefix[-1]+i)
-        
-        for i in range(1, len(prefix)):
-            prefix[i]+=prefix[i-1]
+        pre = [0]
+        for i in range(n):
+            pre.append(pre[-1]+strength[i])
+        for i in range(1, len(pre)):
+            pre[i]+=pre[i-1]
         
         res = 0
-        for i in range(len(A)):
+        for i in range(n):
             l,r = left[i], right[i]
-            l_range, r_range = i-l, r-i
-            lsum = prefix[i] - prefix[max(l,0)]
-            rsum = prefix[r] - prefix[i]
-            res+=A[i]*(rsum*l_range - lsum*r_range)
-        return res % (10**9 + 7)
-                      
+            lrange = i-l
+            rrange = r-i
+            lsum = pre[i]-pre[max(l,0)]
+            rsum = pre[r] - pre[i]
+            res+=strength[i]*(rsum*lrange - lsum*rrange)
+        return res % (10**9+7)
