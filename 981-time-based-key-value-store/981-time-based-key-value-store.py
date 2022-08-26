@@ -14,7 +14,7 @@ class TimeMap:
             mid = (low+hi)//2
             if arr[mid][0]<=timestamp:
                 low = mid+1
-            elif arr[mid][0]>timestamp:
+            else:
                 hi = mid
         return "" if hi==0 else arr[hi-1][1]
 
