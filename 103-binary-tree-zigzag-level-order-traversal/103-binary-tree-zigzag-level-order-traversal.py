@@ -15,16 +15,15 @@ class Solution:
         res = []
         while queue:
             temp = []
-            if count%2==0:
-                for i in range(len(queue)):
+            for i in range(len(queue)):
+                if count%2==0:
                     node = queue.popleft()
                     temp.append(node.val)
                     if node.left:
                         queue.append(node.left)
                     if node.right:
                         queue.append(node.right)
-            else:
-                for i in range(len(queue)):
+                else:
                     node = queue.pop()
                     temp.append(node.val)
                     if node.right:
@@ -34,4 +33,3 @@ class Solution:
             count+=1
             res.append(temp)
         return res
-                    
