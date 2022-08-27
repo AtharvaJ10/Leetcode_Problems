@@ -16,17 +16,16 @@ class Solution:
             stack.append(i)
         
         pre = [0]
-        for i in range(n):
-            pre.append(pre[-1]+strength[i])
+        for i in strength:
+            pre.append(pre[-1]+i)
         for i in range(1, len(pre)):
             pre[i]+=pre[i-1]
         
         res = 0
         for i in range(n):
             l,r = left[i], right[i]
-            lrange = i-l
-            rrange = r-i
-            lsum = pre[i]-pre[max(l,0)]
-            rsum = pre[r] - pre[i]
+            lrange, rrange = i-l, r-i
+            lsum,rsum = pre[i]-pre[max(l,0)], pre[r]-pre[i]
             res+=strength[i]*(rsum*lrange - lsum*rrange)
-        return res % (10**9+7)
+        res%=(10**9+7)
+        return res
