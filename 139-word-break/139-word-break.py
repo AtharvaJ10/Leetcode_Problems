@@ -9,9 +9,10 @@ class Solution:
         if not curr:
             return True
         
-        cache[curr] = False
-        for i in range(len(curr)+1):
-            if curr[:i] in words and (curr[i:] in words or self.helper(curr[i:], words, cache)):
+        for i in range(1, len(curr)+1):
+            if curr[:i] in words and (curr[i:] in words or self.helper(curr[i:],words,cache)):
                 cache[curr] = True
                 return True
+        
+        cache[curr] = False
         return False
