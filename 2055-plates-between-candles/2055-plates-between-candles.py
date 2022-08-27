@@ -1,34 +1,34 @@
 class Solution:
     def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
-        n = len(s)
+        n,l,count = len(s),-1,0
         left = [-1]*n
-        candles =[]
-        count, c = 0,-1
+        candles = []
         for i in range(n):
             if s[i]=='|':
-                c = i
+                l = i
                 count+=1
-            left[i] = c
             candles.append(count)
+            left[i] = l
         
         right = [-1]*n
-        c = -1
+        r = -1
         for i in range(n-1,-1,-1):
             if s[i]=='|':
-                c = i
-            right[i] = c
+                r = i
+            right[i] = r
         
-        res=[]
+        res = []
         for i,j in queries:
-            start = right[i]
-            end = left[j]
-            if start==-1 or end==-1:
+            st, end = right[i], left[j]
+            if st==-1 or end==-1:
                 res.append(0)
             else:
-                dist = end - start
-                if dist>0:
-                    temp = end-start+1 - (candles[end] - candles[start]+1)
-                    res.append(temp)
-                else:
+                dist = end-st
+                if dist<0:
                     res.append(0)
+                else:
+                    temp = dist+1-(candles[end]-candles[st]+1)
+                    res.append(temp)
         return res
+        
+        
