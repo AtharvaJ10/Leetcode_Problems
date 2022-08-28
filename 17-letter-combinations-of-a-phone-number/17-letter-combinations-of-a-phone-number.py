@@ -1,17 +1,18 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        d = {'2': 'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno', '7':'pqrs', '8':'tuv', '9':'wxyz'}
-        return self.helper(d, digits, "", 0, [])
+        d = {2: 'abc', 3:'def', 4:'ghi', 5:'jkl', 6:'mno', 7:'pqrs', 8:'tuv', 9:'wxyz'}
+        return self.helper(digits, 0, d, [], '')
     
-    def helper(self, d, digits, curr, i, res):
-        if i==len(digits):
+    def helper(self, digits, ind, d, res, curr):
+        if ind==len(digits):
             res.append(curr)
+            curr = ''
             return
         
-        for j in d[digits[i]]:
-            curr+=j
-            self.helper(d, digits, curr, i+1, res)
+        for i in d[int(digits[ind])]:
+            curr+=i
+            self.helper(digits, ind+1, d, res, curr)
             curr = curr[:-1]
+        
         return res
             
-        
