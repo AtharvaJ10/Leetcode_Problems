@@ -8,15 +8,18 @@ class TimeMap:
 
     def get(self, key: str, timestamp: int) -> str:
         arr = self.d[key]
-        low = 0
-        hi = len(arr)
+        low,hi = 0, len(arr)
         while low<hi:
             mid = (low+hi)//2
             if arr[mid][0]<=timestamp:
                 low = mid+1
             else:
                 hi = mid
-        return "" if hi==0 else arr[hi-1][1]
+                
+        if hi>0:
+            return arr[hi-1][1]
+        else:
+            return ""
 
 
 # Your TimeMap object will be instantiated and called as such:
