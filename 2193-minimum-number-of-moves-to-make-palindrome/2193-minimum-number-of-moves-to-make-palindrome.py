@@ -1,6 +1,6 @@
 class Solution:
     def minMovesToMakePalindrome(self, s: str) -> int:
-        l = list(s)
+        """l = list(s)
         res = 0
         while l:
             index = l.index(l[-1])
@@ -10,9 +10,9 @@ class Solution:
                 res+=index
                 l.pop(index)
             l.pop()
-        return res
+        return res"""
         
-        """l, r, s = 0, len(s) - 1, list(s)
+        l, r, s = 0, len(s) - 1, list(s)
         ans = 0
         while l < r:
             if s[l] != s[r]:
@@ -30,4 +30,4 @@ class Solution:
                     l, r = l + 1, r - 1
             else:
                 l, r = l + 1, r - 1
-        return ans"""
+        return ans
