@@ -1,16 +1,16 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
-        def dfs(i,j, x):
-            if i<0 or i>=rows or j<0 or j>=cols or image[i][j]!=x or visited[i][j]:
-                return
-            image[i][j] = color
-            visited[i][j] = True
-            dfs(i+1,j,x)
-            dfs(i,j-1,x)
-            dfs(i-1,j,x)
-            dfs(i,j+1,x)
-        
-        rows, cols = len(image), len(image[0])
-        visited = [[False for _ in range(cols)] for _ in range(rows)]
-        dfs(sr,sc, image[sr][sc])
+        queue = deque([])
+        queue.append([sr,sc])
+        comp = image[sr][sc]
+        image[sr][sc] = color
+        visited = [[False for _ in range(len(image[0]))] for _ in range(len(image))]
+        visited[sr][sc] = True
+        while queue:
+            r,c = queue.popleft()
+            for i,j in [r+1,c], [r,c-1], [r-1,c], [r,c+1]:
+                if 0<=i<len(image) and 0<=j<len(image[0]) and image[i][j]==comp and not visited[i][j]:
+                    image[i][j] = color
+                    queue.append([i,j])
+                    visited[i][j] = True
         return image
