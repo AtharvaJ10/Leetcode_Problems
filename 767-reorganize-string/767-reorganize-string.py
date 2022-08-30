@@ -1,16 +1,16 @@
 import heapq
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        d = Counter(s)
-        pkey, pval = "",0
-        res = ""
-        heap = [(-value, key) for key,value in d.items()]
+        c = Counter(s)
+        prev_key, prev_val = "", 0
+        heap = [(-val, key) for key,val in c.items()]
         heapq.heapify(heap)
+        res = ""
         while heap:
-            cval, ckey = heapq.heappop(heap)
-            if pval:
-                heapq.heappush(heap, (pval,pkey))
-            res+=ckey
-            cval+=1
-            pkey,pval = ckey,cval
+            curr_val, curr_key = heapq.heappop(heap)
+            if prev_val<0:
+                heapq.heappush(heap, (prev_val, prev_key))
+            res+=curr_key
+            curr_val+=1
+            prev_key, prev_val = curr_key, curr_val
         return res if len(res)==len(s) else ""
