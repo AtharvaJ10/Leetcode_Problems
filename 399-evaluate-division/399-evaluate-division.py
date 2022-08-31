@@ -1,28 +1,36 @@
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        def bfs(start, dest):
-            if start not in graph or dest not in graph:
-                return -1
+        def bfs(start, end):
             queue = deque([])
-            queue.append([start, 1.0])
+            queue.append([i,1])
             visited = set([start])
             while queue:
-                node, val = queue.popleft()
-                if node==dest:
+                start, val = queue.popleft()
+                if start==j:
                     return val
-                for i in graph[node]:
-                    if i not in visited:
-                        visited.add(i)
-                        queue.append([i, val*graph[node][i]])
-            return -1
+                for k in graph[start]:
+                    if k not in visited:
+                        visited.add(k)
+                        queue.append([k, val*graph[start][k]])
+            return -1.0
         
         
         graph = defaultdict(dict)
-        for eq,v in zip(equations, values):
-            graph[eq[0]][eq[1]] = v
-            graph[eq[1]][eq[0]] = 1/v
-            
+        for eq,val in zip(equations, values):
+            i,j = eq[0],eq[1]
+            graph[i][j] = val
+            graph[j][i] = 1/val
+        
         res = []
         for i,j in queries:
+            if i not in graph or j not in graph:
+                res.append(-1.0)
+                continue
             res.append(bfs(i,j))
         return res
+                
+            
+            
+                
+                
+        
