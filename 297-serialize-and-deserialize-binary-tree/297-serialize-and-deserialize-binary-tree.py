@@ -4,31 +4,31 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
-from collections import deque
-class Codec:
-    
-    def serialize_helper(self, root):
-        if root:
-            self.encode.append(str(root.val))
-            self.serialize_helper(root.left)
-            self.serialize_helper(root.right)
-        else:
-            self.encode.append("#")
 
+class Codec:
+
+    def serialize_helper(self, root):
+        if not root:
+            self.encode.append("#")
+            return 
+        self.encode.append(str(root.val))
+        self.serialize_helper(root.left)
+        self.serialize_helper(root.right)
+    
     def serialize(self, root):
         """Encodes a tree to a single string.
         
         :type root: TreeNode
         :rtype: str
-        """     
+        """
         self.encode = []
         self.serialize_helper(root)
         return ' '.join(self.encode)
-        
-    def deserialize_helper(self):    
+    
+    def deserialize_helper(self):
         if self.queue:
             node = self.queue.popleft()
-            if node!='#':
+            if node!="#":
                 root = TreeNode(node)
                 root.left = self.deserialize_helper()
                 root.right = self.deserialize_helper()
@@ -42,12 +42,11 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        data = data.split(" ")
         self.queue = deque([])
+        data = data.split(" ")
         for i in data:
             self.queue.append(i)
         return self.deserialize_helper()
-        
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
