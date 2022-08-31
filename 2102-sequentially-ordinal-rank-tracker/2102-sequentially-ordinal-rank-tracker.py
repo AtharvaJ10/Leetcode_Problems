@@ -26,22 +26,22 @@ class h2Node:
 class SORTracker:
 
     def __init__(self):
-        self.min = []
         self.max = []
+        self.min = []
 
     def add(self, name: str, score: int) -> None:
         n1 = h1Node(name, score)
         n2 = h2Node(name, score)
-        if not self.max or self.max[0]>n2:
-            heapq.heappush(self.min, n1)
+        if not self.min or self.min[0]>n2:
+            heapq.heappush(self.max, n1)
         else:
-            heapq.heappush(self.max, n2)
-            node = heapq.heappop(self.max)
-            heapq.heappush(self.min, node.to_h1())
+            heapq.heappush(self.min, n2)
+            node = heapq.heappop(self.min)
+            heapq.heappush(self.max, node.to_h1())
 
     def get(self) -> str:
-        node = heapq.heappop(self.min)
-        heapq.heappush(self.max, node.to_h2())
+        node = heapq.heappop(self.max)
+        heapq.heappush(self.min, node.to_h2())
         return node.name
 
 
