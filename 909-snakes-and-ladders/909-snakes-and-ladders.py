@@ -1,27 +1,26 @@
-from collections import deque
 class Solution:
     def snakesAndLadders(self, board: List[List[int]]) -> int:
-        def get_index(square):
+        def compute(square):
             r,c = divmod(square-1, n)
-            if r%2!=0:
-                return n-r-1, n-c-1
-            else:
+            if r%2==0:
                 return n-r-1, c
+            else:
+                return n-r-1, n-c-1
         
-        n = len(board)
         queue = deque([])
         queue.append([1,0])
-        visited = set()
+        n = len(board)
+        visited = set([1])
         while queue:
             square, steps = queue.popleft()
-            r,c = get_index(square)
+            r,c = compute(square)
             if board[r][c]!=-1:
                 square = board[r][c]
-            if square==n*n:
+            if square == n**2:
                 return steps
-        
-            for i in range(1,7):
-                if square+i<=n*n and square+i not in visited:
-                    visited.add(square+i)
-                    queue.append([square+i, steps+1])
+            for i in range(1, 7):
+                new_square = square+i
+                if new_square not in visited and new_square<=n**2:
+                    visited.add(new_square)
+                    queue.append([new_square, steps+1])
         return -1
