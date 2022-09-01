@@ -7,5 +7,4 @@ class Solution:
             for c in coins:
                 if i>=c:
                     dp[i] = min(dp[i], dp[i-c]+1)
-                    
         return dp[amount] if dp[amount]!=amount+1 else -1
