@@ -1,13 +1,13 @@
 class Solution:
     def partitionArray(self, nums: List[int], k: int) -> int:
-        nums.sort()
-        mx = mn = nums[0]
-        i = 0
         res = 1
-        for i in nums:
-            mx = max(mx, i)
-            mn = min(mn, i)
+        nums.sort()
+        mn = mx = nums[0]
+        for i in range(1, len(nums)):
+            mx = max(mx, nums[i])
+            mn = min(mn, nums[i])
             if mx-mn>k:
-                mx = mn = i
                 res+=1
+                mx = mn = nums[i]
         return res
+                
