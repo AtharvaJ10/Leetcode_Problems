@@ -15,11 +15,7 @@ class TimeMap:
                 low = mid+1
             else:
                 hi = mid
-                
-        if hi>0:
-            return arr[hi-1][1]
-        else:
-            return ""
+        return arr[hi-1][1] if hi>0 else ""
 
 
 # Your TimeMap object will be instantiated and called as such:
