@@ -4,9 +4,7 @@ class WordNode:
         self.is_end = False
 
 
-class WordDictionary:
-    WILDCARD = "."
-    
+class WordDictionary:    
     def __init__(self):
         self.root = WordNode()
 
