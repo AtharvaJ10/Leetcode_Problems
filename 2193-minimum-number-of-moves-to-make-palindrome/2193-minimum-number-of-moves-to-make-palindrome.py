@@ -2,12 +2,19 @@ class Solution:
     def minMovesToMakePalindrome(self, s: str) -> int:
         s = list(s)
         res = 0
-        while s:
-            index = s.index(s[-1])
-            if index==len(s)-1:
-                res+=index//2
+        l,r = 0, len(s)-1
+        while l<r:
+            char = s[l]
+            k = r
+            while k>l and s[l]!=s[k]:
+                k-=1
+            if k==l:
+                s[l],s[l+1] = s[l+1],s[l]
+                res+=1
             else:
-                res+=index
-                s.pop(index)
-            s.pop()
+                while k<r:
+                    s[k],s[k+1] = s[k+1], s[k]
+                    k+=1
+                    res+=1
+                l,r = l+1,r-1
         return res
