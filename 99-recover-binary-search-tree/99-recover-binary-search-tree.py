@@ -9,22 +9,24 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        self.first = self.prev = self.middle = self.last = None
+        self.first = self.middle = self.last = self.prev = None
+        def inorder(node):
+            if not node:
+                return
+            inorder(node.left)
+            
+            if self.prev and self.prev.val>node.val:
+                if self.first:
+                    self.last = node
+                else:
+                    self.first = self.prev
+                    self.middle = node
+            self.prev = node
+            inorder(node.right)
         
-        def dfs(node):
-            if node:
-                dfs(node.left)
-                if self.prev is not None and self.prev.val>node.val:
-                    if self.first is None:
-                        self.first = self.prev
-                        self.middle = node
-                    else:
-                        self.last = node
-                self.prev = node
-                dfs(node.right)
-        
-        dfs(root)
-        if self.last is not None:
+        inorder(root)
+        if self.last:
             self.first.val, self.last.val = self.last.val, self.first.val
         else:
             self.first.val, self.middle.val = self.middle.val, self.first.val
+            
