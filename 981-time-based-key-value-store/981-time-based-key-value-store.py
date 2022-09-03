@@ -4,11 +4,11 @@ class TimeMap:
         self.d = defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.d[key].append([timestamp, value])
+        self.d[key].append([timestamp,value])
 
     def get(self, key: str, timestamp: int) -> str:
         arr = self.d[key]
-        low,hi = 0, len(arr)
+        low, hi = 0, len(arr)
         while low<hi:
             mid = (low+hi)//2
             if arr[mid][0]<=timestamp:
