@@ -6,15 +6,16 @@
 #         self.right = None
 
 class Codec:
-
-    def serialize_helper(self, root):
-        if not root:
-            self.encode.append("#")
-            return 
-        self.encode.append(str(root.val))
-        self.serialize_helper(root.left)
-        self.serialize_helper(root.right)
     
+    def serialize_helper(self, node):
+        if not node:
+            self.encode.append("#")
+            return
+        self.encode.append(str(node.val))
+        self.serialize_helper(node.left)
+        self.serialize_helper(node.right)
+        
+
     def serialize(self, root):
         """Encodes a tree to a single string.
         
@@ -47,7 +48,7 @@ class Codec:
         for i in data:
             self.queue.append(i)
         return self.deserialize_helper()
-
+    
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
 # deser = Codec()
