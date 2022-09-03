@@ -14,7 +14,7 @@ class MedianFinder:
         if len(self.max)>len(self.min):
             return -self.max[0]
         else:
-            return (-self.max[0]+self.min[0])/2
+            return (self.min[0]-self.max[0])/2
 
 
 # Your MedianFinder object will be instantiated and called as such:
