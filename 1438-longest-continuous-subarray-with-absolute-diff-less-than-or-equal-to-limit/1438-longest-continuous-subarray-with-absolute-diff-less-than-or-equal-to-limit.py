@@ -1,4 +1,3 @@
-from collections import deque
 class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
         maxd = deque([])
@@ -20,3 +19,4 @@ class Solution:
                     mind.popleft()
                 j+=1
         return len(nums)-j
+                    
