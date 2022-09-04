@@ -1,9 +1,8 @@
 class Solution:
-    def canJump(self, nums):
-        m = 0
-        for i, n in enumerate(nums):
-            if i > m:
+    def canJump(self, nums: List[int]) -> bool:
+        res = 0
+        for i in range(len(nums)):
+            if i>res:
                 return False
-            m = max(m, i+n)
+            res = max(res, i+nums[i])
         return True
-        
