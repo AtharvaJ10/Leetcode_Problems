@@ -9,12 +9,13 @@ class Solution:
                 i+=1
             return count>=k
         
+        
         nums.sort()
-        l,r = 0, nums[-1]-nums[0]
-        while l<r:
-            mid = (l+r)//2
+        low, high = 0, nums[-1]-nums[0]
+        while low<high:
+            mid = (low+high)//2
             if enough(mid):
-                r = mid
+                high = mid
             else:
-                l = mid+1
-        return l
+                low = mid+1
+        return low
