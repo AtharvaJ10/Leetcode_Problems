@@ -14,5 +14,3 @@ class Solution:
             else:
                 return False
         return helper(root, -float('inf'), float('inf'))
-            
-        
