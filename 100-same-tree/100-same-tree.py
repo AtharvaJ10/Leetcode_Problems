@@ -17,7 +17,3 @@ class Solution:
             right = dfs(p.right, q.right)
             return left and right
         return dfs(p,q)
-        
-            
-            
-            
