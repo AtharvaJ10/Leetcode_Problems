@@ -3,7 +3,6 @@ class Solution:
         def dfs(i,j,x):
             if x==len(word):
                 return True
-            
             if i<0 or i>=rows or j<0 or j>=cols or visited[i][j] or board[i][j]!=word[x]:
                 return False
             
