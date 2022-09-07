@@ -4,7 +4,7 @@ class Solution:
             if x==len(word):
                 return True
             
-            if i<0 or i>=rows or j<0 or j>=cols or x>=len(word) or board[i][j]!=word[x] or visited[i][j]:
+            if i<0 or i>=rows or j<0 or j>=cols or visited[i][j] or board[i][j]!=word[x]:
                 return False
             
             visited[i][j] = True
@@ -12,11 +12,11 @@ class Solution:
             visited[i][j] = False
             return res
         
-        rows, cols = len(board), len(board[0])
+        rows,cols = len(board), len(board[0])
         visited = [[False for _ in range(cols)] for _ in range(rows)]
         for i in range(rows):
             for j in range(cols):
-                if not visited[i][j] and board[i][j]==word[0]:
+                if board[i][j]==word[0] and not visited[i][j]:
                     if dfs(i,j,0):
                         return True
         return False
