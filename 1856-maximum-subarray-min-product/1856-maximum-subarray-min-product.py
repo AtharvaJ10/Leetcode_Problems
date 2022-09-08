@@ -18,10 +18,11 @@ class Solution:
         pre = [0]
         for i in nums:
             pre.append(pre[-1]+i)
-            
-        res = 0
-        for i in range(len(nums)):
-            l,r = left[i], right[i]
-            res= max(res, nums[i]*(pre[r]-pre[l+1]))
         
-        return res % (10**9+7)
+        res = 0
+        for i in range(n):
+            l,r = left[i], right[i]
+            temp = nums[i]*(pre[r]-pre[l+1])
+            res = max(res,temp)
+        return res%(10**9+7)
+        
