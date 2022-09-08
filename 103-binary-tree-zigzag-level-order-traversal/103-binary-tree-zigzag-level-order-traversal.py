@@ -10,7 +10,8 @@ class Solution:
             return []
         queue = deque([])
         queue.append(root)
-        res,count = [],0
+        count = 0
+        res = []
         while queue:
             temp = []
             for _ in range(len(queue)):
