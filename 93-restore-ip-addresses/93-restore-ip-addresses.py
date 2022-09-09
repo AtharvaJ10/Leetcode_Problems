@@ -12,5 +12,4 @@ class Solution:
         for i in range(1, len(s)+1):
             if s[:i]=="0" or (s[0]!="0" and 0<int(s[:i])<256):
                 self.helper(s[i:], ind+1, res, path+s[:i]+".")
-        
         return res
