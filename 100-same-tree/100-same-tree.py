@@ -11,9 +11,9 @@ class Solution:
                 return False
             if not p and not q:
                 return True
-            if p.val!=q.val:
+            
+            if p.val==q.val:
+                return dfs(p.left, q.left) and dfs(p.right, q.right)
+            else:
                 return False
-            left = dfs(p.left, q.left)
-            right = dfs(p.right, q.right)
-            return left and right
         return dfs(p,q)
