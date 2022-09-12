@@ -12,18 +12,22 @@ class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root or not root.left and not root.right:
             return root
+        
         queue = deque([])
         queue.append(root)
         
         while queue:
-            level = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                level.append(node)
+            level = deque([])
+            for i in range(len(queue)):
+                node = queue[i]
                 if node.left:
-                    queue.append(node.left)
+                    level.append(node.left)
                 if node.right:
-                    queue.append(node.right)
-            for i in range(len(level)-1):
-                level[i].next = level[i+1]
+                    level.append(node.right)
+            
+            for i in range(1, len(queue)):
+                queue[i-1].next = queue[i]
+            
+            queue = level
         return root
+            
