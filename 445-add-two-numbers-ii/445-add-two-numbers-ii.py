@@ -5,43 +5,54 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        l1 = self.reverse(l1)
-        l2 = self.reverse(l2)
-        
-        res = None
-        carry = 0
-        while l1 or l2:
-            if not l1:
-                sum1 = l2.val+carry
-                l2 = l2.next
-            elif not l2:
-                sum1 = l1.val + carry
-                l1 = l1.next
-            else:
-                sum1 = l1.val + l2.val + carry
-                l1 = l1.next
-                l2 = l2.next
-                
-            if sum1>9:
-                sum1-=10
+        def compute(val, carry):
+            res = val+carry
+            if res>9:
+                res-=10
                 carry = 1
             else:
                 carry = 0
-            
-            temp = ListNode(sum1)
-            temp.next = res
-            res = temp
+            return (res, carry)
+        
+        head1 = None
+        while l1:
+            temp = l1.next
+            l1.next = head1
+            head1 = l1
+            l1 = temp
+        
+        head2 = None
+        while l2:
+            temp = l2.next
+            l2.next = head2
+            head2 = l2
+            l2 = temp
+
+        res = None
+        carry = 0
+        while head1 or head2:
+            if not head1:
+                val,carry = compute(head2.val,carry)
+                node = ListNode(val)
+                node.next = res
+                res = node
+                head2 = head2.next
+            elif not head2:
+                val,carry = compute(head1.val,carry)
+                node = ListNode(val)
+                node.next = res
+                res = node
+                head1 = head1.next
+            else:
+                val,carry = compute(head1.val+head2.val, carry)
+                node = ListNode(val)
+                node.next = res
+                res = node
+                head1 = head1.next
+                head2 = head2.next
         if carry:
-            temp = ListNode(1)
-            temp.next = res
-            res = temp
+            node = ListNode(1)
+            node.next = res
+            res = node
         return res
-    
-    def reverse(self, head):
-        prev = None
-        while head:
-            next1 = head.next
-            head.next = prev
-            prev = head
-            head = next1
-        return prev
+        
