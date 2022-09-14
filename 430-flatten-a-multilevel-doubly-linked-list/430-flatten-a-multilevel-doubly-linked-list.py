@@ -12,7 +12,6 @@ class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None
-        
         def dfs(head):
             cur = prev = head
             while cur:
@@ -25,7 +24,7 @@ class Solution:
                     cur.next = cur_next
                     if cur.next:
                         cur.next.prev = cur
-                cur, prev = cur.next, cur
+                prev, cur = cur, cur.next
             return prev
         dfs(head)
         return head
