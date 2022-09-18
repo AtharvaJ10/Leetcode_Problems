@@ -1,7 +1,8 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        m, n = map(len, (text1, text2))
-        dp = [0] * (n + 1)
+        if len(text2)> len(text1):
+            text1, text2 = text2, text1
+        dp = [0] * (len(text2) + 1)
         for c in text1:
             prevRow, prevRowPrevCol = 0, 0
             for j, d in enumerate(text2):
