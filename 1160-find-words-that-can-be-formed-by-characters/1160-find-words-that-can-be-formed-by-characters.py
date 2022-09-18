@@ -1,12 +1,12 @@
 class Solution:
     def countCharacters(self, words: List[str], chars: str) -> int:
-        char_count = Counter(chars)
+        chars_count = Counter(chars)
         res = 0
-        for word in words:
-            word_count = Counter(word)
-            for c in word_count:
-                if word_count[c]>char_count[c]:
+        for i in words:
+            word_count = Counter(i)
+            for j in word_count:
+                if word_count[j]>chars_count[j]:
                     break
             else:
-                res+=len(word)
+                res+=len(i)
         return res
